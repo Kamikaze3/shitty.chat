@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/kamikaze3/shitty.chat/issues"
   },
-  "homepage": "https://github.com/kamikaze3/shitty.chat#readme"
+  "homepage": "https://github.com/kamikaze3/shitty.chat#readme",
+  "dependencies": {
+    "uuid": "^3.3.2",
+    "websocket": "^1.0.28"
+  }
 }
