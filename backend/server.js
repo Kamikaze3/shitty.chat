@@ -10,9 +10,6 @@ httpServer.listen(PORT, () => {
     log(`Connection listening on port ${PORT}`);
 });
 
-
-
-
 const options = {
     httpServer: httpServer,
 };
