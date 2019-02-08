@@ -1,7 +1,8 @@
 import React, {createRef} from 'react';
-import { Route, withRouter, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Canvas from './Canvas';
+import Frontpage from './Frontpage';
 
 const Chat = () => {
 	const canvasRef = createRef();
@@ -23,12 +24,6 @@ const Chat = () => {
 		</div>
 	</>;
 };
-
-const Frontpage = withRouter(({ history }) => <div className="Frontpage">
-	<h1> Shitty.chat </h1>
-	<p> Have a shitty chat with a stranger </p>
-	<button onClick={() => { history.push('/new-chat') }}> Start a chat now </button>
-</div>);
 
 const App = ({ history }) =>
 	<div className="App">
