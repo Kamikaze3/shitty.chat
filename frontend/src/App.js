@@ -1,15 +1,18 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, forwardRef, useImperativeHandle, createRef} from 'react';
 import './App.css';
 import { Route, withRouter, Switch } from 'react-router-dom';
 
 const WS_HOST = process.env.WS_HOST || "127.0.0.1";
 const WS_PORT = process.env.WS_PORT || "1337";
 
-const Canvas = () => {
-	const canvasRef = React.createRef();
+const Canvas = forwardRef( ({ getImageData }, ref) => {
+	const canvasRef = createRef();
+	let ctx;
 
 	useEffect(() => {
-		const ctx = canvasRef.current.getContext("2d");
+		ctx = canvasRef.current.getContext("2d");
+		ctx.canvas.width = canvasRef.current.parentElement.scrollWidth;
+		ctx.canvas.height = canvasRef.current.parentElement.scrollHeight;
 		let prev = null;
 
 		const mousedown = e => prev = Object.assign({}, e);
@@ -37,31 +40,37 @@ const Canvas = () => {
 		};
 	});
 
+	useImperativeHandle(ref, () => ({
+		getImageData() {
+			return ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+		}
+	}));
+
 	return <canvas ref={canvasRef} />
-}
+} );
 
 const initConnection = () => new WebSocket(`ws://${WS_HOST}:${WS_PORT}`);
-
-
 const Chat = () => {
+	const canvasRef = React.createRef();
     const connection = initConnection();
 
-
-    return (<>
-        <h1> new chat </h1>
-        <div>
-            <span> Chatlog </span>
-        </div>
-        <div className="box">
-            <button> Quit </button>
-            <div>
-                <span>Field to draw</span>
-                <Canvas />
-            </div>
-            <button onClick={() => { connection.send("penis") }}> Send </button>
-        </div>
-    </>);
-}
+	return <>
+		<h1> new chat </h1>
+		<div>
+			<span> Chatlog </span>
+		</div>
+		<div className="box">
+			<button> Quit </button>
+			<div>
+				<Canvas ref={canvasRef} />
+			</div>
+			<button onClick={() => {
+				const d = canvasRef.current.getImageData();
+                connection.send(d);
+			}}> Send </button>
+		</div>
+	</>;
+};
 
 const Frontpage = withRouter(({ history }) => <div className="Frontpage">
 	<h1> Shitty.chat </h1>
