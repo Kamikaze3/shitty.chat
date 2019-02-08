@@ -4,7 +4,12 @@ import './App.css';
 import Canvas from './Canvas';
 import Frontpage from './Frontpage';
 
+const WS_HOST = process.env.WS_HOST || "127.0.0.1";
+const WS_PORT = process.env.WS_PORT || "1337";
+
+const initConnection = () => new WebSocket(`ws://${WS_HOST}:${WS_PORT}`);
 const Chat = () => {
+    const connection = initConnection();
 	const canvasRef = createRef();
 
 	return <>
@@ -18,8 +23,9 @@ const Chat = () => {
 				<Canvas ref={canvasRef} />
 			</div>
 			<button onClick={() => {
-				const d = canvasRef.current.getImageData();	
-				console.log("send", d);
+				const d = canvasRef.current.getImageData();
+				connection.send(d);
+				console.log(d);
 			}}> Send </button>
 		</div>
 	</>;
