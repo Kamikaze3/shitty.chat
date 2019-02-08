@@ -2,6 +2,9 @@ import React, {useEffect} from 'react';
 import './App.css';
 import { Route, withRouter, Switch } from 'react-router-dom';
 
+const WS_HOST = process.env.WS_HOST || "127.0.0.1";
+const WS_PORT = process.env.WS_PORT || "1337";
+
 const Canvas = () => {
 	const canvasRef = React.createRef();
 
@@ -37,20 +40,28 @@ const Canvas = () => {
 	return <canvas ref={canvasRef} />
 }
 
-const Chat = () => <>
-	<h1> new chat </h1>
-	<div>
-		<span> Chatlog </span>
-	</div>
-	<div className="box">
-		<button> Quit </button>
-		<div>
-			<span>Field to draw</span>
-			<Canvas />
-		</div>
-		<button> Send </button>
-	</div>
-</>;
+const initConnection = () => new WebSocket(`ws://${WS_HOST}:${WS_PORT}`);
+
+
+const Chat = () => {
+    const connection = initConnection();
+
+
+    return (<>
+        <h1> new chat </h1>
+        <div>
+            <span> Chatlog </span>
+        </div>
+        <div className="box">
+            <button> Quit </button>
+            <div>
+                <span>Field to draw</span>
+                <Canvas />
+            </div>
+            <button onClick={() => { connection.send("penis") }}> Send </button>
+        </div>
+    </>);
+}
 
 const Frontpage = withRouter(({ history }) => <div className="Frontpage">
 	<h1> Shitty.chat </h1>
