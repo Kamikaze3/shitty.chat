@@ -10,10 +10,15 @@ const initConnection = () => new WebSocket(`ws://${WS_HOST}:${WS_PORT}`);
 const Chat = () => {
     const connection = initConnection();
 	const canvasRef = createRef();
+    const logRef = createRef();
+
+    connection.on('message', message => {
+
+    });
 
 	return <>
 		<h1> new chat </h1>
-		<div>
+		<div ref={logRef}>
 			<span> Chatlog </span>
 		</div>
 		<div className="box">
