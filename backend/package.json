@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "The backend for shitty.chat",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"banana\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kamikaze3/shitty.chat.git"
+  },
+  "keywords": [
+    "backend",
+    "shitty",
+    "chat",
+    "poop"
+  ],
+  "author": "Mads Røskar <madshvero@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamikaze3/shitty.chat/issues"
+  },
+  "homepage": "https://github.com/kamikaze3/shitty.chat#readme",
+  "dependencies": {
+    "uuid": "^3.3.2",
+    "websocket": "^1.0.28"
+  }
+}
