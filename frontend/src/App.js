@@ -13,9 +13,9 @@ const Chat = () => {
 	const canvasRef = createRef();
     const logRef = createRef();
 
-    connection.on('message', message => {
+    connection.onmessage = (message) => {
 
-    });
+    };
 
 	return <>
 		<h1> new chat </h1>
