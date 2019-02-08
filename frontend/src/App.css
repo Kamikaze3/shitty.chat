@@ -1,0 +1,37 @@
+body {
+	background: rgb(50,50,150);
+}
+
+body > div {
+	background: white;
+	margin: 10px;
+	padding: 50px;
+}
+
+.Frontpage {
+  text-align: center;
+}
+
+.box {
+	display: flex;
+	flex-direction: row;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	min-height: 200px;
+}
+
+.box button {
+	flex-grow: 1;
+}
+
+.box div {
+	flex-grow: 5;
+}
+
+canvas {
+	background: white;
+	border: 1px solid black;
+	margin: 5px;
+}
