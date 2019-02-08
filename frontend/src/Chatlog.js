@@ -7,6 +7,13 @@ const reducer = (state, action) => {
 	return state;
 }
 
+const Message = ({ log }) => {
+	if(typeof log.image !== 'undefined')
+		return <img src={log.image} />;
+
+	return <div>{ JSON.stringify(log) }</div>;
+}
+
 const Chatlog = ({}, ref) => {
 	const [{ chatlog }, dispatch] = useReducer(reducer, { chatlog: [] });
 
@@ -21,7 +28,7 @@ const Chatlog = ({}, ref) => {
 			chatlog.lenght === 0 ? 'No chatlog' : ''
 		}
 		{
-			chatlog.map( log => <div> log </div> )
+			chatlog.map( log => <Message log={log} /> )
 		}
 	</div>;
 };

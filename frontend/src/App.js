@@ -14,8 +14,8 @@ const Chat = () => {
 	const canvasRef = createRef();
 	const logRef = createRef();
 
-	connection.onmessage = (message) => {
-
+	connection.onmessage = message => {
+		logRef.current.newMessage( message );
 	};
 
 	return <>
@@ -31,8 +31,7 @@ const Chat = () => {
 			<button onClick={() => {
 				const d = canvasRef.current.getImageData();
 				connection.send(d);
-				console.log(d);
-				logRef.current.newMessage('lol');
+				logRef.current.newMessage({ image: d });
 			}}> Send </button>
 		</div>
 	</>;
