@@ -1,58 +1,14 @@
-import React, {useEffect, forwardRef, useImperativeHandle, createRef} from 'react';
-import './App.css';
+import React, {createRef} from 'react';
 import { Route, withRouter, Switch } from 'react-router-dom';
+import Canvas from './Canvas';
 
 const WS_HOST = process.env.WS_HOST || "127.0.0.1";
 const WS_PORT = process.env.WS_PORT || "1337";
 
-const Canvas = forwardRef( ({ getImageData }, ref) => {
-	const canvasRef = createRef();
-	let ctx;
-
-	useEffect(() => {
-		ctx = canvasRef.current.getContext("2d");
-		ctx.canvas.width = canvasRef.current.parentElement.scrollWidth;
-		ctx.canvas.height = canvasRef.current.parentElement.scrollHeight;
-		let prev = null;
-
-		const mousedown = e => prev = Object.assign({}, e);
-		canvasRef.current.addEventListener("mousedown", mousedown);
-
-		const mousemove = e => {
-			if(prev == null) return;
-
-			ctx.beginPath();
-			ctx.moveTo(prev.offsetX, prev.offsetY);
-			ctx.lineTo(e.offsetX, e.offsetY);
-			ctx.stroke();
-
-			prev = e;
-		};
-		canvasRef.current.addEventListener("mousemove", mousemove);
-
-		const mouseup = e => prev = null;
- 		canvasRef.current.addEventListener("mouseup", mouseup);
-
-		return () => {
-			canvasRef.removeEventListener("mousedown", mousedown);
-			canvasRef.removeEventListener("mousemove", mousemove);
-			canvasRef.removeEventListener("mouseup",   mouseup);
-		};
-	});
-
-	useImperativeHandle(ref, () => ({
-		getImageData() {
-			return ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-		}
-	}));
-
-	return <canvas ref={canvasRef} />
-} );
-
 const initConnection = () => new WebSocket(`ws://${WS_HOST}:${WS_PORT}`);
 const Chat = () => {
-	const canvasRef = React.createRef();
     const connection = initConnection();
+	const canvasRef = createRef();
 
 	return <>
 		<h1> new chat </h1>
