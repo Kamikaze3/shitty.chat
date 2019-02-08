@@ -2,7 +2,7 @@ import React, {useEffect, forwardRef, useImperativeHandle, createRef} from 'reac
 
 const Canvas = ({ getImageData }, ref) => {
 	const canvasRef = createRef();
-	let ctx;
+	let ctx = null;
 
 	useEffect(() => {
 		ctx = canvasRef.current.getContext("2d");
@@ -37,6 +37,8 @@ const Canvas = ({ getImageData }, ref) => {
 
 	useImperativeHandle(ref, () => ({
 		getImageData() {
+			if(ctx == null) return;
+
 			return ctx.canvas.toDataURL();
 		}
 	}));
