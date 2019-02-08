@@ -7,6 +7,10 @@ const Canvas = () => {
 
 	useEffect(() => {
 		const ctx = canvasRef.current.getContext("2d");
+		console.log(canvasRef, canvasRef.current.scrollWidth);
+		ctx.canvas.width = canvasRef.current.parentElement.scrollWidth;
+		ctx.canvas.height = canvasRef.current.parentElement.scrollHeight
+
 		let prev = null;
 
 		const mousedown = e => prev = Object.assign({}, e);
@@ -45,7 +49,6 @@ const Chat = () => <>
 	<div className="box">
 		<button> Quit </button>
 		<div>
-			<span>Field to draw</span>
 			<Canvas />
 		</div>
 		<button> Send </button>
