@@ -1,7 +1,8 @@
 import React, {createRef} from 'react';
-import { Route, withRouter, Switch } from 'react-router-dom';
-import Canvas from './Canvas';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Canvas from './Canvas';
+import Frontpage from './Frontpage';
 
 const WS_HOST = process.env.WS_HOST || "127.0.0.1";
 const WS_PORT = process.env.WS_PORT || "1337";
@@ -28,17 +29,12 @@ const Chat = () => {
 			</div>
 			<button onClick={() => {
 				const d = canvasRef.current.getImageData();
-                connection.send(d);
+				connection.send(d);
+				console.log(d);
 			}}> Send </button>
 		</div>
 	</>;
 };
-
-const Frontpage = withRouter(({ history }) => <div className="Frontpage">
-	<h1> Shitty.chat </h1>
-	<p> Have a shitty chat with a stranger </p>
-	<button onClick={() => { history.push('/new-chat') }}> Start a chat now </button>
-</div>);
 
 const App = ({ history }) =>
 	<div className="App">
