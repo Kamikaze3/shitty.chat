@@ -1,6 +1,6 @@
 import React, {useEffect, forwardRef, useImperativeHandle, createRef} from 'react';
 
-const Canvas = forwardRef( ({ getImageData }, ref) => {
+const Canvas = ({ getImageData }, ref) => {
 	const canvasRef = createRef();
 	let ctx;
 
@@ -42,6 +42,6 @@ const Canvas = forwardRef( ({ getImageData }, ref) => {
 	}));
 
 	return <canvas ref={canvasRef} />
-} );
+};
 
-export default Canvas;
+export default forwardRef(Canvas);
