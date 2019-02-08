@@ -39,7 +39,7 @@ const Canvas = forwardRef( ({ getImageData }, ref) => {
 
 	useImperativeHandle(ref, () => ({
 		getImageData() {
-			return ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+			return ctx.canvas.toDataURL();
 		}
 	}));
 
