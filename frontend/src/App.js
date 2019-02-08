@@ -32,6 +32,7 @@ const Chat = () => {
 				const d = canvasRef.current.getImageData();
 				connection.send(d);
 				logRef.current.newMessage({ image: d });
+				canvasRef.current.clear();
 			}}> Send </button>
 		</div>
 	</>;

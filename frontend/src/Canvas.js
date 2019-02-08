@@ -40,6 +40,9 @@ const Canvas = ({ getImageData }, ref) => {
 			if(ctx == null) return;
 
 			return ctx.canvas.toDataURL();
+		},
+		clear() {
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 		}
 	}));
 
