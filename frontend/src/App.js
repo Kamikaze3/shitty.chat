@@ -1,6 +1,7 @@
 import React, {createRef} from 'react';
 import { Route, withRouter, Switch } from 'react-router-dom';
 import Canvas from './Canvas';
+import './App.css';
 
 const WS_HOST = process.env.WS_HOST || "127.0.0.1";
 const WS_PORT = process.env.WS_PORT || "1337";
